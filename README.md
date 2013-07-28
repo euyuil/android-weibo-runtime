@@ -1,10 +1,12 @@
 Android Weibo Runtime
 =====================
 
-This is an Android library project developed with Android Studio. It's still under construction.
+This is an Android runtime library project developed with Android Studio.
+It's still under construction,
+so it might be very unstable and major changes will be made frequently.
 
-It provides an authorization Activity and several ContentProviders (consistent with the Android
-ContentProvider interfaces).
+It provides an authorization `Activity` and several `ContentProvider`s (consistent with the Android
+`ContentProvider` interfaces).
 
 Usage
 -----
