@@ -10,11 +10,31 @@ import java.util.Date;
 
 public class WeiboIdentity {
 
+    private static final String PROVIDER = "weibo";
+
     private String userId;
     private String accessToken;
     private Date expireDate;
 
     public WeiboIdentity() {
+    }
+
+    public WeiboIdentity(String identity)
+            throws WeiboInvalidIdentityException, WeiboInvalidProviderException {
+
+        String[] parts = identity.split("/");
+
+        if (parts.length != 2) {
+            throw new WeiboInvalidIdentityException();
+        }
+
+        String provider = parts[0];
+
+        if (provider.equals(PROVIDER)) {
+            this.userId = parts[1];
+        } else {
+            throw new WeiboInvalidProviderException();
+        }
     }
 
     public WeiboIdentity(AccessToken accessToken) {
@@ -30,6 +50,11 @@ public class WeiboIdentity {
         c.add(Calendar.SECOND, seconds);
         return c.getTime();
         */
-        return new Date(now.getTime() + seconds * 1000);
+        return new Date(now.getTime() + seconds * 1000); // TODO Find some way more elegant.
+    }
+
+    @Override
+    public String toString() {
+        return PROVIDER + "/" + userId;
     }
 }

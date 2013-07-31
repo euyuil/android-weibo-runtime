@@ -16,14 +16,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.euyuil.weibo.WeiboAuthActivity"
+            android:name=".WeiboAuthorizeActivity"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="com.euyuil.identity.ACTION_AUTHORIZE"/>
+                <action android:name="com.euyuil.identity.ACTION_AUTHORIZE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.euyuil.weibo.ACTION_AUTHORIZE"/>
+                <action android:name="com.euyuil.weibo.ACTION_AUTHORIZE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
