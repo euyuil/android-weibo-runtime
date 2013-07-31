@@ -45,7 +45,9 @@ with your own authority:
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ACTION_AUTHORIZE) {
-            String identity = data.getStringExtra("identity"); // identity of user, "weibo/" + UID.
+            String provider = data.getStringExtra("provider"); // "weibo".
+            String identity = data.getStringExtra("identity"); // user id in weibo.
+            String universal = data.getStringExtra("universal"); // universal identity of user, "weibo/" + identity.
             // TODO
         }
     }

@@ -19,10 +19,11 @@ public class WeiboIdentity {
     public WeiboIdentity() {
     }
 
-    public WeiboIdentity(String identity)
+    // TODO Re-consider this one.
+    public WeiboIdentity(String universal)
             throws WeiboInvalidIdentityException, WeiboInvalidProviderException {
 
-        String[] parts = identity.split("/");
+        String[] parts = universal.split("/");
 
         if (parts.length != 2) {
             throw new WeiboInvalidIdentityException();
@@ -51,6 +52,34 @@ public class WeiboIdentity {
         return c.getTime();
         */
         return new Date(now.getTime() + seconds * 1000); // TODO Find some way more elegant.
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public Date getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public String getProvider() {
+        return PROVIDER;
     }
 
     @Override

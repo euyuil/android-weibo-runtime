@@ -135,11 +135,19 @@ public class WeiboAuthorizeActivity extends Activity {
     }
 
     protected void onAccessToken(AccessToken accessToken) {
+
         // Access token acquired. Authorization process finished.
-        Intent data = new Intent();
+
         WeiboIdentity identity = new WeiboIdentity(accessToken);
-        data.putExtra("identity", identity.toString());
+
+        Intent data = new Intent();
+
+        data.putExtra("universal", identity.toString());
+        data.putExtra("provider", identity.getProvider());
+        data.putExtra("identity", identity.getUserId());
+
         setResult(Activity.RESULT_OK, data);
+
         finish();
     }
 
