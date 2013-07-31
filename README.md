@@ -16,7 +16,7 @@ Installation
 
         WeiboConfig.reset("your_client_id", "your_client_secret");
 
- 2. Then, replace all the occurrence of `com.euyuil` to your own authority. Remember, this is
+ 2. Then, replace all the occurrence of `com.euyuil` with your own authority. Remember, this is
     **very important**, otherwise you might get conflicts with other applications.
 
  3. Compile this project and install the APK to your Android device.
@@ -33,7 +33,8 @@ Note: you **don't** have to reference this project as a library in your own proj
 Usage
 -----
 
-To start a Weibo session, just do as following in your `Activity`:
+To start a Weibo session, just do as following in your `Activity`, and remember to replace `com.euyuil`
+with your own authority:
 
     private int ACTION_AUTHORIZE = your_action_code;
 
