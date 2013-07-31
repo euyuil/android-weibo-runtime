@@ -47,7 +47,7 @@ with your own authority:
         if (requestCode == ACTION_AUTHORIZE) {
             String provider = data.getStringExtra("provider"); // "weibo".
             String identity = data.getStringExtra("identity"); // user id in weibo.
-            String universal = data.getStringExtra("universal"); // universal identity of user, "weibo/" + identity.
+            String universal = data.getStringExtra("universal"); // "weibo/" + identity.
             // TODO
         }
     }
