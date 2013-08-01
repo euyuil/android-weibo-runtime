@@ -12,6 +12,21 @@ It provides an authorization `Activity` and several `ContentProvider`s (consiste
 Installation
 ------------
 
+ 1. Install our library APK to your Android phone.
+
+ 2. Use the interfaces provided by this library in your own project, see usage.
+
+ 3. Compile your own project and install the APK to your Android device.
+
+ 4. Done.
+
+Note: you **don't** have to reference this project as a library in your own project while developing
+if you decide to use it this way. And in this case, the source code is useless to you.
+
+
+Integration
+-----------
+
  1. At the very beginning, you should configure your own client id and secret in `WeiboConfig`.
 
         WeiboConfig.reset("your_client_id", "your_client_secret");
@@ -19,15 +34,13 @@ Installation
  2. Then, replace all the occurrence of `com.euyuil` with your own authority. Remember, this is
     **very important**, otherwise you might get conflicts with other applications.
 
- 3. Compile this project and install the APK to your Android device.
+ 3. Reference this project in your own project.
 
  4. Use the interfaces provided by this library in your own project, see usage.
 
  5. Compile your own project and install the APK to your Android device.
 
  6. Done.
-
-Note: you **don't** have to reference this project as a library in your own project while developing.
 
 
 Usage
