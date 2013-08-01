@@ -8,6 +8,9 @@ so it might be very unstable and major changes will be made frequently.
 It provides an authorization `Activity` and several `ContentProvider`s (consistent with the Android
 `ContentProvider` interfaces).
 
+You can either install our APK as runtime library to your Android device directly, or integrate our
+source code with yours using your own client id and key.
+
 
 Installation
 ------------
