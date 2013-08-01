@@ -1,5 +1,6 @@
 package com.euyuil.weibo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -21,7 +22,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -140,13 +146,41 @@ public class WeiboAuthorizeActivity extends Activity {
 
         WeiboIdentity identity = new WeiboIdentity(accessToken);
 
-        Intent data = new Intent();
+        boolean oosError = false;
+        ObjectOutputStream oos = null;
+        try {
+            File providerDirectory = getDir(identity.getProvider(), Context.MODE_PRIVATE);
+            if (!providerDirectory.exists())
+                providerDirectory.mkdirs();
+            oos = new ObjectOutputStream(
+                    new FileOutputStream(new File(providerDirectory, identity.getUserId())));
+            oos.writeObject(identity);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            oosError = true;
+        }
 
-        data.putExtra("universal", identity.toString());
-        data.putExtra("provider", identity.getProvider());
-        data.putExtra("identity", identity.getUserId());
+        if (oos != null) {
+            try {
+                oos.close();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                oosError = true;
+            }
+        }
 
-        setResult(Activity.RESULT_OK, data);
+        if (oosError == true) {
+            setResult(Activity.RESULT_CANCELED); // TODO RESULT_FAILED should be better.
+        } else {
+
+            Intent data = new Intent();
+
+            data.putExtra("universal", identity.toString());
+            data.putExtra("provider", identity.getProvider());
+            data.putExtra("identity", identity.getUserId());
+
+            setResult(Activity.RESULT_OK, data);
+        }
 
         finish();
     }

@@ -2,13 +2,14 @@ package com.euyuil.weibo;
 
 import com.euyuil.weibo.json.AccessToken;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Yue on 13-7-28.
  */
 
-public class WeiboIdentity {
+public class WeiboIdentity implements Serializable {
 
     private static final String PROVIDER = "weibo";
 
