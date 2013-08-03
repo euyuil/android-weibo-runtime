@@ -54,36 +54,14 @@ public class WeiboAuthorizeActivity extends Activity {
 
         @Override
         protected String doInBackground(Void... voids) {
-
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(TOKEN_URI);
-            try {
-
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-
-                nameValuePairs.add(new BasicNameValuePair("client_id", WeiboConfig.getClientId()));
-                nameValuePairs.add(new BasicNameValuePair("client_secret", WeiboConfig.getClientSecret()));
-                nameValuePairs.add(new BasicNameValuePair("grant_type", "authorization_code"));
-                nameValuePairs.add(new BasicNameValuePair("code", code));
-                nameValuePairs.add(new BasicNameValuePair("redirect_uri", REDIRECT_URI));
-
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-                HttpResponse response;
-                response = httpClient.execute(httpPost);
-
-                Scanner scanner = new Scanner(response.getEntity().getContent());
-                if (scanner.hasNext()) {
-                    String result = scanner.next();
-                    return result;
-                }
-
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
+            return new WeiboApiQuery(WeiboApiQuery.Method.POST, WeiboApiQuery.Uri.TOKEN)
+                    .parameter("client_id", WeiboConfig.getClientId())
+                    .parameter("client_secret", WeiboConfig.getClientSecret())
+                    .parameter("grant_type", "authorization_code")
+                    .parameter("code", this.code)
+                    .parameter("redirect_uri", WeiboApiQuery.Uri.REDIRECT)
+                    .execute()
+                    .result();
         }
     }
 
@@ -99,7 +77,7 @@ public class WeiboAuthorizeActivity extends Activity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            if (url.startsWith(REDIRECT_URI)) {
+            if (url.startsWith(WeiboApiQuery.Uri.REDIRECT)) {
                 Matcher matcher = Pattern.compile("\\?code=(.*)$").matcher(url);
                 if (matcher.find()) {
                     final String code = matcher.group(1);
@@ -108,10 +86,6 @@ public class WeiboAuthorizeActivity extends Activity {
             }
         }
     }
-
-    protected static final String REDIRECT_URI = "https://api.weibo.com/oauth2/default.html";
-    protected static final String AUTHORIZE_URI = "https://api.weibo.com/oauth2/authorize";
-    protected static final String TOKEN_URI = "https://api.weibo.com/oauth2/access_token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,10 +98,10 @@ public class WeiboAuthorizeActivity extends Activity {
 
         // Request authorization, next step is onGrantAccess.
         try {
-            webView.loadUrl(AUTHORIZE_URI +
+            webView.loadUrl(WeiboApiQuery.Uri.AUTHORIZE +
                     "?client_id=" + WeiboConfig.getClientId() +
                     "&display=mobile" +
-                    "&redirect_uri=" + URLEncoder.encode(REDIRECT_URI, "utf-8")
+                    "&redirect_uri=" + URLEncoder.encode(WeiboApiQuery.Uri.REDIRECT, "utf-8")
             );
 
         } catch (UnsupportedEncodingException uee) {
