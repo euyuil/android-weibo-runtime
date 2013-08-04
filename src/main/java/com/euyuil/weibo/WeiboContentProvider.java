@@ -1,10 +1,15 @@
 package com.euyuil.weibo;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.UriMatcher;
+import android.database.CharArrayBuffer;
+import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.net.Uri;
+import android.os.Bundle;
 
 /**
  * Created by Yue on 13-7-31.
