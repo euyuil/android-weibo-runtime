@@ -12,7 +12,7 @@ public class User {
 //    "province": "11",
 //    "city": "5",
 //    "location": "北京 朝阳区",
-//    "description": "人生五十年，乃如梦如幻；有生斯有死，壮士复何憾。",
+    public String description;
 //    "url": "http://blog.sina.com.cn/zaku",
 //    "profile_image_url": "http://tp1.sinaimg.cn/1404376560/50/0/1",
 //    "domain": "zaku",
